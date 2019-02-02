@@ -37,7 +37,6 @@ public class PhoneBookServiceImpl implements PhoneBookService {
     }
   }
 
-
   public Contact createContact() throws IOException {
     createDirectoryIfNotExists();
     Contact resultContact = new Contact();
@@ -246,7 +245,7 @@ public class PhoneBookServiceImpl implements PhoneBookService {
         }
         System.out.println();
       }
-    } else if (file.exists() && file.length() == 0){
+    } else if (file.exists() && file.length() == 0) {
       log.info("File is empty!");
     }
   }
@@ -262,16 +261,25 @@ public class PhoneBookServiceImpl implements PhoneBookService {
   }
 
   private boolean ifContactExists(Contact contact) {
-    List<Contact> allContacts = allContactsStored();
-    if (!Files.exists(PATH_JSON_FILE)) {
-      return false;
-    } else if (allContacts == null || allContacts.size() == 0) {
+    if (fileNotExistsOrEmpty()) {
       return false;
     }
+    List<Contact> allContacts = allContactsStored();
     for (Contact contactCheck : allContacts) {
-      if ((contact.getFirstName()+contact.getLastName()).equals((contactCheck.getFirstName()+contactCheck.getLastName()))) {
+      if ((contact.getFirstName() + contact.getLastName()).equals((contactCheck.getFirstName() + contactCheck.getLastName()))) {
         return true;
       }
+    }
+    return false;
+  }
+
+  private boolean fileNotExistsOrEmpty() {
+    if (!Files.exists(PATH_JSON_FILE)) {
+      return true;
+    }
+    List<Contact> allContacts = allContactsStored();
+    if (allContacts == null || allContacts.size() == 0) {
+      return true;
     }
     return false;
   }
