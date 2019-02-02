@@ -72,7 +72,7 @@ public class Start {
         " -a   Adds a new contact\n" +
         " -r   Removes an contact\n" +
         " -fFirstName  Finds contact by first name\n" +
-        " -u   Updates a contact - not implemented yet!!!\n" +
+//        " -u   Updates a contact - not implemented yet!!!\n" +
         " -console  Shows possible commands\n" +
         " -exit Exits program\n");
   }

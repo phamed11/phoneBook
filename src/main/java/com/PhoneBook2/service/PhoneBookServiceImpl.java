@@ -84,8 +84,17 @@ public class PhoneBookServiceImpl implements PhoneBookService {
 
   private String createDateOfBirth() {
     Scanner scanner = new Scanner(System.in);
+    boolean isTrue = true;
     System.out.print("Enter date of birth: ");
     String dateOfBirth = scanner.nextLine();
+    while (isTrue) {
+      if (dateOfBirth.length() == 8) {
+        isTrue = false;
+      } else {
+        System.out.print("Date of birth format is (\"19801130\") \n Enter date of birth: ");
+        dateOfBirth = scanner.nextLine();
+      }
+    }
     return dateOfBirth;
   }
 
@@ -100,7 +109,7 @@ public class PhoneBookServiceImpl implements PhoneBookService {
       } else if (title.equals("Mr") || title.equals("Mrs") || title.equals("Ms")) {
         isTrue = false;
       } else {
-        System.out.print("Title must be either Mr. or Mrs. or Ms. \n Enter title: ");
+        System.out.print("Title must be either Mr. or Mrs. or Ms. or leave it empty! \n Enter title: ");
         title = scanner.nextLine();
       }
     }
