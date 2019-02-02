@@ -2,7 +2,6 @@ package com.PhoneBook2.service;
 
 import com.PhoneBook2.models.Address;
 import com.PhoneBook2.models.Contact;
-import com.PhoneBook2.models.PhoneNumber;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import org.slf4j.Logger;
@@ -16,6 +15,8 @@ import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
+
+import static java.nio.file.StandardOpenOption.APPEND;
 
 @Service
 public class PhoneBookServiceImpl implements PhoneBookService{
@@ -144,12 +145,12 @@ public class PhoneBookServiceImpl implements PhoneBookService{
     return resultAddresses;
   }
 
-  private List<PhoneNumber> createPhoneNumbers() {
+  private List<String> createPhoneNumbers() {
     Scanner scanner = new Scanner(System.in);
-    PhoneNumber phoneNumber = new PhoneNumber();
+    String phoneNumber = "";
     int numberOfPhoneNumbers = 0;
     boolean isTrue = true;
-    List<PhoneNumber> phoneNumberList = new ArrayList<>();
+    List<String> phoneNumberList = new ArrayList<>();
     System.out.print("How many phonenumbers do you want to add?: ");
     while (isTrue) {
       try {
@@ -162,14 +163,12 @@ public class PhoneBookServiceImpl implements PhoneBookService{
     }
     if (numberOfPhoneNumbers == 1) {
       System.out.print("Add phonenumber(must be 10 numbers): ");
-      phoneNumber.setPhoneNumber(formatPhoneNumber(scanner.next()));
-      phoneNumberList.add(phoneNumber);
+      phoneNumberList.add(formatPhoneNumber(scanner.next()));
       return phoneNumberList;
     } else {
       for (int i = 0; i < numberOfPhoneNumbers; i++) {
         System.out.print("Add phonenumber(must be 10 numbers) no." + (i + 1) + ": ");
-        phoneNumber.setPhoneNumber(formatPhoneNumber(scanner.next()));
-        phoneNumberList.add(phoneNumber);
+        phoneNumberList.add(formatPhoneNumber(scanner.next()));
       }
     }
     return phoneNumberList;
@@ -198,7 +197,7 @@ public class PhoneBookServiceImpl implements PhoneBookService{
     }.getType();
     String toJson = new Gson().toJson(contacts, collectionType);
     Path path = Paths.get(LOCAL_FOLDER + PHONEBOOK_FILE);
-    Files.write(path, toJson.getBytes());
+    Files.write(path, toJson.getBytes(), APPEND);
   }
 }
 

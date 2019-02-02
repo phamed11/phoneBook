@@ -15,10 +15,10 @@ public class Contact {
   private String firstName;
   private String lastName;
   private String dateOfBirth;
-  private List<PhoneNumber> phoneNumber;
+  private List<String> phoneNumber;
   private List<Address> address;
 
-  public Contact(String title, String firstName, String lastName, String dateOfBirth, List<PhoneNumber> phoneNumberList, List<Address> addressList) {
+  public Contact(String title, String firstName, String lastName, String dateOfBirth, List<String> phoneNumberList, List<Address> addressList) {
     this.title = title;
     this.firstName = firstName;
     this.lastName = lastName;
@@ -27,7 +27,7 @@ public class Contact {
     this.address = addressList;
   }
 
-  public Contact(String firstName, String lastName, String dateOfBirth, List<PhoneNumber> phoneNumberList, List<Address> addressList) {
+  public Contact(String firstName, String lastName, String dateOfBirth, List<String> phoneNumberList, List<Address> addressList) {
     this.firstName = firstName;
     this.lastName = lastName;
     this.dateOfBirth = dateOfBirth;
