@@ -59,7 +59,7 @@ public class PhoneBookServiceImpl implements PhoneBookService {
       log.error("File is missing");
     } catch (IOException e) {
       e.printStackTrace();
-      log.error("Wrong fileformat or empty file!");
+      log.error("Wrong file format or empty file!");
     }
     Type collectionType = new TypeToken<List<Contact>>() {
     }.getType();
@@ -130,7 +130,7 @@ public class PhoneBookServiceImpl implements PhoneBookService {
       address.setCity(scanner.nextLine());
       System.out.print("Enter street: ");
       address.setStreet(scanner.nextLine());
-      System.out.print("Enter zipcode: ");
+      System.out.print("Enter zip code: ");
       address.setZipCode(scanner.nextLine());
       resultAddresses.add(address);
       return resultAddresses;
@@ -144,7 +144,7 @@ public class PhoneBookServiceImpl implements PhoneBookService {
         address.setCity(scanner.nextLine());
         System.out.print("Enter street: ");
         address.setStreet(scanner.nextLine());
-        System.out.print("Enter zipcode: ");
+        System.out.print("Enter zip code: ");
         address.setZipCode(scanner.nextLine());
         resultAddresses.add(address);
       }
@@ -158,7 +158,7 @@ public class PhoneBookServiceImpl implements PhoneBookService {
     int numberOfPhoneNumbers = 0;
     boolean isTrue = true;
     List<String> phoneNumberList = new ArrayList<>();
-    System.out.print("How many phonenumbers do you want to add?: ");
+    System.out.print("How many phone numbers do you want to add?: ");
     while (isTrue) {
       try {
         numberOfPhoneNumbers = scanner.nextInt();
@@ -169,12 +169,12 @@ public class PhoneBookServiceImpl implements PhoneBookService {
       }
     }
     if (numberOfPhoneNumbers == 1) {
-      System.out.print("Add phonenumber(must be 10 numbers): ");
+      System.out.print("Add phone number(must be 10 numbers): ");
       phoneNumberList.add(formatPhoneNumber(scanner.next()));
       return phoneNumberList;
     } else {
       for (int i = 0; i < numberOfPhoneNumbers; i++) {
-        System.out.print("Add phonenumber(must be 10 numbers) no." + (i + 1) + ": ");
+        System.out.print("Add phone number(must be 10 numbers) no." + (i + 1) + ": ");
         phoneNumberList.add(formatPhoneNumber(scanner.next()));
       }
     }
@@ -237,7 +237,7 @@ public class PhoneBookServiceImpl implements PhoneBookService {
         }
         System.out.println("Contact's birthday: " + phoneBook.get(i).getDateOfBirth());
         for (int j = 0; j < phoneBook.get(i).getPhoneNumber().size(); j++) {
-          System.out.println("Contact's phonenumber no." + (j + 1) + ": " + phoneBook.get(i).getPhoneNumber().get(j));
+          System.out.println("Contact's phone number no." + (j + 1) + ": " + phoneBook.get(i).getPhoneNumber().get(j));
         }
         for (int j = 0; j < phoneBook.get(i).getAddress().size(); j++) {
           System.out.println("Contact's address no." + (j + 1) + ":");
@@ -308,7 +308,7 @@ public class PhoneBookServiceImpl implements PhoneBookService {
         return;
       }
     }
-    log.error("No contact with that name exits in phonebook");
+    log.error("No contact with that name exits in phone book");
   }
 }
 
