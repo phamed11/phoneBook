@@ -25,6 +25,7 @@ public class PhoneBookServiceImpl implements PhoneBookService {
   private static final String UPLOADED_FOLDER = System.getProperty("user.home") + "/phonebook/";
   private static final String PHONEBOOK_FILE = "phoneBook.json";
   private static final String LOCAL_FOLDER = "Assets/";
+  private static final String JSON_FILE = LOCAL_FOLDER + PHONEBOOK_FILE;
 
 
   public Contact createContact() throws IOException {
@@ -45,7 +46,7 @@ public class PhoneBookServiceImpl implements PhoneBookService {
   public List<Contact> allContactsStored() {
     String content = "";
     try {
-      content = new String(Files.readAllBytes(Paths.get(LOCAL_FOLDER + PHONEBOOK_FILE)), "UTF-8");
+      content = new String(Files.readAllBytes(Paths.get(JSON_FILE)), "UTF-8");
     } catch (NoSuchFileException e) {
       log.error("File is missing");
     } catch (IOException e) {
@@ -205,19 +206,19 @@ public class PhoneBookServiceImpl implements PhoneBookService {
     List<Contact> contactList = new ArrayList<>();
     Type collectionType = new TypeToken<List<Contact>>() {
     }.getType();
-    Path path = Paths.get(LOCAL_FOLDER + PHONEBOOK_FILE);
+    Path path = Paths.get(JSON_FILE);
     if (!Files.exists(path)) {
-      String toJsonOne = new Gson().toJson(contacts, Contact.class);
-      Contact one = new Gson().fromJson(toJsonOne, Contact.class);
+      String toJsonOne = contactToJson(contacts);
+      Contact one = jsonToContact(toJsonOne);
       contactList.add(one);
       String toJsonMany = new Gson().toJson(contactList, collectionType);
       Files.write(path, toJsonMany.getBytes());
       return;
     }
-    File file = new File(LOCAL_FOLDER + PHONEBOOK_FILE);
+    File file = new File(JSON_FILE);
     if (file.length() == 0 || file.equals(null)) {
-      String toJsonOne = new Gson().toJson(contacts, Contact.class);
-      Contact one = new Gson().fromJson(toJsonOne, Contact.class);
+      String toJsonOne = contactToJson(contacts);
+      Contact one = jsonToContact(toJsonOne);
       contactList.add(one);
       String toJsonMany = new Gson().toJson(contactList, collectionType);
       Files.write(path, toJsonMany.getBytes());
@@ -230,21 +231,39 @@ public class PhoneBookServiceImpl implements PhoneBookService {
   }
 
   public void displayPhoneBook(List<Contact> phoneBook) {
-    for (int i = 0; i < phoneBook.size(); i++) {
-      System.out.println("Contacts name: " + phoneBook.get(i).getTitle() + " " + phoneBook.get(i).getFirstName() + " " + phoneBook.get(i).getLastName());
-      System.out.println("Contacts birthday: " + phoneBook.get(i).getDateOfBirth());
-      for (int j = 0; j < phoneBook.get(i).getAddress().size(); j++) {
-        System.out.println("Contacts address no." + (j + 1) + ":");
-        System.out.println("Contacts country: " + phoneBook.get(i).getAddress().get(j).getCountry());
-        System.out.println("Contacts city: " + phoneBook.get(i).getAddress().get(j).getCity());
-        System.out.println("Contacts street: " + phoneBook.get(i).getAddress().get(j).getStreet());
-        System.out.println("Contacts zipcode: " + phoneBook.get(i).getAddress().get(j).getZipCode());
+    File file = new File(JSON_FILE);
+    if (file.exists()) {
+      for (int i = 0; i < phoneBook.size(); i++) {
+        if (phoneBook.get(i).getTitle() == null) {
+          System.out.println("Contact's name: " + phoneBook.get(i).getFirstName() + " " + phoneBook.get(i).getLastName());
+        } else {
+          System.out.println("Contact's name: " + phoneBook.get(i).getTitle() + " " + phoneBook.get(i).getFirstName() + " " + phoneBook.get(i).getLastName());
+        }
+        System.out.println("Contact's birthday: " + phoneBook.get(i).getDateOfBirth());
+        for (int j = 0; j < phoneBook.get(i).getPhoneNumber().size(); j++) {
+          System.out.println("Contact's phonenumber no." + (j + 1) + ": " + phoneBook.get(i).getPhoneNumber().get(j));
+        }
+        for (int j = 0; j < phoneBook.get(i).getAddress().size(); j++) {
+          System.out.println("Contact's address no." + (j + 1) + ":");
+          System.out.println("Contact's country: " + phoneBook.get(i).getAddress().get(j).getCountry());
+          System.out.println("Contact's city: " + phoneBook.get(i).getAddress().get(j).getCity());
+          System.out.println("Contact's street: " + phoneBook.get(i).getAddress().get(j).getStreet());
+          System.out.println("Contact's zipcode: " + phoneBook.get(i).getAddress().get(j).getZipCode());
+        }
+
+        System.out.println();
       }
-      for (int j = 0; j < phoneBook.get(i).getPhoneNumber().size(); j++) {
-        System.out.println("Contacts phonenumber no." + (j + 1) + ": " + phoneBook.get(i).getPhoneNumber().get(j));
-      }
-      System.out.println();
     }
+  }
+
+  private String contactToJson(Contact contact) {
+    String toJsonOne = new Gson().toJson(contact, Contact.class);
+    return toJsonOne;
+  }
+
+  private Contact jsonToContact(String json) {
+    Contact contact = new Gson().fromJson(json, Contact.class);
+    return contact;
   }
 }
 
