@@ -22,7 +22,7 @@ import java.util.*;
 public class PhoneBookServiceImpl implements PhoneBookService {
 
   private Logger log = LoggerFactory.getLogger(this.getClass());
-  private static final String UPLOADED_FOLDER = System.getProperty("user.home") + "/phonebook/";
+  private static final String UPLOADED_FOLDER = System.getProperty("user.home") + "/phonebook/"; //Ony use in production for local machine savings...
   private static final String PHONEBOOK_FILE = "phoneBook.json";
   private static final String LOCAL_FOLDER = "Assets/";
   private static final String JSON_FILE = LOCAL_FOLDER + PHONEBOOK_FILE;
