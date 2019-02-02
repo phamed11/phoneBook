@@ -1,7 +1,5 @@
 package com.PhoneBook2.service;
 
-import com.PhoneBook2.exception.ContactNotFoundException;
-import com.PhoneBook2.exception.ContactWrongParameterException;
 import com.PhoneBook2.models.Address;
 import com.PhoneBook2.models.Contact;
 import com.google.gson.Gson;
