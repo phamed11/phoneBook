@@ -26,6 +26,16 @@ public class PhoneBookServiceImpl implements PhoneBookService {
   private static final String PHONEBOOK_FILE = "phoneBook.json";
   private static final String LOCAL_FOLDER = "Assets/";
   private static final String JSON_FILE = LOCAL_FOLDER + PHONEBOOK_FILE;
+  private static final Path PATH_JSON_FILE = Paths.get(JSON_FILE);
+
+  public void createContactIfNotExists(Contact contact) throws IOException {
+    if (ifContactExists(contact)) {
+      log.error("Contact already exists!");
+    } else {
+      saveContacts(contact);
+      log.info("New contact created with name: " + contact.getFirstName() + " " + contact.getLastName());
+    }
+  }
 
 
   public Contact createContact() throws IOException {
@@ -38,8 +48,7 @@ public class PhoneBookServiceImpl implements PhoneBookService {
     resultContact.setDateOfBirth(createDateOfBirth());
     resultContact.setPhoneNumber(createPhoneNumbers());
     resultContact.setAddress(createAddresses());
-    saveContacts(resultContact);
-    log.info("New contact created with name: " + resultContact.getFirstName() + " " + resultContact.getLastName());
+    createContactIfNotExists(resultContact);
     return resultContact;
   }
 
@@ -191,17 +200,6 @@ public class PhoneBookServiceImpl implements PhoneBookService {
     }
   }
 
-//  private void createFileIfNotExists() throws IOException {
-//    Path path = Paths.get(LOCAL_FOLDER + PHONEBOOK_FILE);
-//
-//    if (!Files.exists(path)) {
-//      Files.createFile(path);
-//      log.info("phoneBook file created");
-//    } else {
-//      log.info("phoneBook file already exists");
-//    }
-//  }
-
   private void saveContacts(Contact contacts) throws IOException {
     List<Contact> contactList = new ArrayList<>();
     Type collectionType = new TypeToken<List<Contact>>() {
@@ -248,7 +246,7 @@ public class PhoneBookServiceImpl implements PhoneBookService {
         }
         System.out.println();
       }
-    } else {
+    } else if (file.exists() && file.length() == 0){
       log.info("File is empty!");
     }
   }
@@ -261,6 +259,21 @@ public class PhoneBookServiceImpl implements PhoneBookService {
   private Contact jsonToContact(String json) {
     Contact contact = new Gson().fromJson(json, Contact.class);
     return contact;
+  }
+
+  private boolean ifContactExists(Contact contact) {
+    List<Contact> allContacts = allContactsStored();
+    if (!Files.exists(PATH_JSON_FILE)) {
+      return false;
+    } else if (allContacts == null || allContacts.size() == 0) {
+      return false;
+    }
+    for (Contact contactCheck : allContacts) {
+      if ((contact.getFirstName()+contact.getLastName()).equals((contactCheck.getFirstName()+contactCheck.getLastName()))) {
+        return true;
+      }
+    }
+    return false;
   }
 }
 
