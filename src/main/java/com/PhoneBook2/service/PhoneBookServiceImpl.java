@@ -1,5 +1,7 @@
 package com.PhoneBook2.service;
 
+import com.PhoneBook2.exception.ContactNotFoundException;
+import com.PhoneBook2.exception.ContactWrongParameterException;
 import com.PhoneBook2.models.Address;
 import com.PhoneBook2.models.Contact;
 import com.google.gson.Gson;
@@ -16,6 +18,7 @@ import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -309,6 +312,22 @@ public class PhoneBookServiceImpl implements PhoneBookService {
       }
     }
     log.error("No contact with that name exits in phone book");
+  }
+
+  public List<Contact> findByName(String firstName) throws ContactNotFoundException, ContactWrongParameterException{
+    if (firstName == null || "".equals(firstName)) {
+      log.error("Argument is not applicable  " + firstName);
+      throw new ContactWrongParameterException("Argument is not applicable: " + firstName);
+    }
+    List<Contact> foundContacts = allContactsStored().stream()
+        .filter(contact -> contact.getFirstName().equals(firstName))
+        .collect(Collectors.toList());
+
+    if (foundContacts.size() == 0) {
+      log.error("Cannot find contact with name " + firstName);
+      throw new ContactNotFoundException("Cannot find contact with name " + firstName);
+    }
+    return foundContacts;
   }
 }
 

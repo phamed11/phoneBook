@@ -7,7 +7,7 @@
               class="ch.qos.logback.core.ConsoleAppender">
         <layout class="ch.qos.logback.classic.PatternLayout">
             <Pattern>
-                %d{yyyy-MM-dd HH:mm:ss} %highlight(%-5level) : %black(%msg) %n
+                %d{yyyy-MM-dd HH:mm:ss} %highlight(%-5level) : %white(%msg) %n
             </Pattern>
         </layout>
     </appender>

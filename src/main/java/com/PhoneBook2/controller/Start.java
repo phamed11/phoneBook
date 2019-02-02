@@ -29,11 +29,11 @@ public class Start {
     while (isTrue) {
       if (attribute.equals("-a")) {
         phoneBookService.createContact();
-        System.out.println("Whats next?");
+        System.out.println("Whats next? use \"-console\" for help!");
         attribute = scanner.nextLine();
       } else if (attribute.equals("-l")) {
         phoneBookService.displayPhoneBook(phoneBookService.allContactsStored());
-        System.out.println("Whats next?");
+        System.out.println("Whats next? use \"-console\" for help!");
         attribute = scanner.nextLine();
       } else if (attribute.equals("-exit")) {
         log.info("PhoneBook app exited, goodbye!");
@@ -42,16 +42,22 @@ public class Start {
         System.out.println("Which contact do you want to remove? (\"firstnamelastname\"): ");
         String toRemove = scanner.nextLine();
         phoneBookService.removeContact(toRemove);
-        System.out.println("Whats next?");
+        System.out.println("Whats next? use \"-console\" for help!");
+        attribute = scanner.nextLine();
+      } else if (attribute.equals("-fFirstName")) {
+        System.out.println("Give first name to find: ");
+        String firstName = scanner.nextLine();
+        phoneBookService.displayPhoneBook(phoneBookService.findByName(firstName));
+        System.out.println("Whats next? use \"-console\" for help!");
         attribute = scanner.nextLine();
       } else if (attribute.equals("-console")) {
         message();
-        System.out.println("Whats next?");
+        System.out.println("Whats next? use \"-console\" for help!");
         attribute = scanner.nextLine();
       } else {
         System.out.println("Not recognizable command, try again!");
         message();
-        System.out.println("Whats next?");
+        System.out.println("Whats next? use \"-console\" for help!");
         attribute = scanner.nextLine();
       }
     }
@@ -65,8 +71,14 @@ public class Start {
     System.out.println(" -l   Lists all the contacts\n" +
         " -a   Adds a new contact\n" +
         " -r   Removes an contact\n" +
-        " -u   Updates a Contact\n" +
+        " -fFirstName  Finds contact by first name\n" +
+        " -u   Updates a contact - not implemented yet!!!\n" +
         " -console  Shows possible commands\n" +
         " -exit Exits program\n");
+  }
+
+  private void nextArgument(String attribute, Scanner scanner) {
+    System.out.println("Whats next? use \"-console\" for help!");
+    attribute = scanner.nextLine();
   }
 }
