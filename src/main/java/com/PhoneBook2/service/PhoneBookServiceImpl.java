@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.nio.file.Files;
@@ -16,10 +17,9 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
 
-import static java.nio.file.StandardOpenOption.APPEND;
 
 @Service
-public class PhoneBookServiceImpl implements PhoneBookService{
+public class PhoneBookServiceImpl implements PhoneBookService {
 
   private Logger log = LoggerFactory.getLogger(this.getClass());
   private static final String UPLOADED_FOLDER = System.getProperty("user.home") + "/phonebook/";
@@ -27,7 +27,7 @@ public class PhoneBookServiceImpl implements PhoneBookService{
   private static final String LOCAL_FOLDER = "Assets/";
 
 
-  public List<Contact> createContact() throws IOException {
+  public Contact createContact() throws IOException {
     createDirectoryIfNotExists();
     Contact resultContact = new Contact();
     System.out.println("Create contact: ");
@@ -37,11 +37,9 @@ public class PhoneBookServiceImpl implements PhoneBookService{
     resultContact.setDateOfBirth(createDateOfBirth());
     resultContact.setPhoneNumber(createPhoneNumbers());
     resultContact.setAddress(createAddresses());
-    List<Contact> allContact = new ArrayList<>();
-    allContact.add(resultContact);
-    saveContacts(allContact);
+    saveContacts(resultContact);
     log.info("New contact created with name: " + resultContact.getFirstName() + " " + resultContact.getLastName());
-    return allContact;
+    return resultContact;
   }
 
   public List<Contact> allContactsStored() {
@@ -89,7 +87,7 @@ public class PhoneBookServiceImpl implements PhoneBookService{
     while (isTrue) {
       if (title.equals("")) {
         return null;
-      } else if (title.equals("Mr.") || title.equals("Mrs.") || title.equals("Ms.")) {
+      } else if (title.equals("Mr") || title.equals("Mrs") || title.equals("Ms")) {
         isTrue = false;
       } else {
         System.out.print("Title must be either Mr. or Mrs. or Ms. \n Enter title: ");
@@ -192,14 +190,67 @@ public class PhoneBookServiceImpl implements PhoneBookService{
     }
   }
 
-  private void saveContacts(List<Contact> contacts) throws IOException {
+//  private void createFileIfNotExists() throws IOException {
+//    Path path = Paths.get(LOCAL_FOLDER + PHONEBOOK_FILE);
+//
+//    if (!Files.exists(path)) {
+//      Files.createFile(path);
+//      log.info("phoneBook file created");
+//    } else {
+//      log.info("phoneBook file already exists");
+//    }
+//  }
+
+  private void saveContacts(Contact contacts) throws IOException {
+    List<Contact> contactList = new ArrayList<>();
     Type collectionType = new TypeToken<List<Contact>>() {
     }.getType();
-    String toJson = new Gson().toJson(contacts, collectionType);
     Path path = Paths.get(LOCAL_FOLDER + PHONEBOOK_FILE);
-    Files.write(path, toJson.getBytes(), APPEND);
+    if (!Files.exists(path)) {
+      String toJsonOne = new Gson().toJson(contacts, Contact.class);
+      Contact one = new Gson().fromJson(toJsonOne, Contact.class);
+      contactList.add(one);
+      String toJsonMany = new Gson().toJson(contactList, collectionType);
+      Files.write(path, toJsonMany.getBytes());
+      return;
+    }
+    File file = new File(LOCAL_FOLDER + PHONEBOOK_FILE);
+    if (file.length() == 0 || file.equals(null)) {
+      String toJsonOne = new Gson().toJson(contacts, Contact.class);
+      Contact one = new Gson().fromJson(toJsonOne, Contact.class);
+      contactList.add(one);
+      String toJsonMany = new Gson().toJson(contactList, collectionType);
+      Files.write(path, toJsonMany.getBytes());
+      return;
+    }
+    contactList = allContactsStored();
+    contactList.add(contacts);
+    String toJsonMany = new Gson().toJson(contactList, collectionType);
+    Files.write(path, toJsonMany.getBytes());
+  }
+
+  public void displayPhoneBook(List<Contact> phoneBook) {
+    for (int i = 0; i < phoneBook.size(); i++) {
+      System.out.println("Contacts name: " + phoneBook.get(i).getTitle() + " " + phoneBook.get(i).getFirstName() + " " + phoneBook.get(i).getLastName());
+      System.out.println("Contacts birthday: " + phoneBook.get(i).getDateOfBirth());
+      for (int j = 0; j < phoneBook.get(i).getAddress().size(); j++) {
+        System.out.println("Contacts address no." + (j + 1) + ":");
+        System.out.println("Contacts country: " + phoneBook.get(i).getAddress().get(j).getCountry());
+        System.out.println("Contacts city: " + phoneBook.get(i).getAddress().get(j).getCity());
+        System.out.println("Contacts street: " + phoneBook.get(i).getAddress().get(j).getStreet());
+        System.out.println("Contacts zipcode: " + phoneBook.get(i).getAddress().get(j).getZipCode());
+      }
+      for (int j = 0; j < phoneBook.get(i).getPhoneNumber().size(); j++) {
+        System.out.println("Contacts phonenumber no." + (j + 1) + ": " + phoneBook.get(i).getPhoneNumber().get(j));
+      }
+      System.out.println();
+    }
   }
 }
+
+
+
+
 
 
 

@@ -7,6 +7,7 @@ import java.util.List;
 
 public interface PhoneBookService {
 
-  List<Contact> createContact() throws IOException;
+  Contact createContact() throws IOException;
   List<Contact> allContactsStored();
+  void displayPhoneBook(List<Contact> phoneBook);
 }

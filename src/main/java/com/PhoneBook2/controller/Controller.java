@@ -28,10 +28,11 @@ public class Controller {
     while(isTrue) {
       if (attribute.equals("-a")) {
         phoneBookService.createContact();
+        System.out.println("Whats next?");
         attribute = scanner.nextLine();
       } else if (attribute.equals("-l")) {
-        System.out.println(phoneBookService.allContactsStored());
-//        TODO change this to visible form!!!
+//        System.out.println(phoneBookService.allContactsStored());
+        phoneBookService.displayPhoneBook(phoneBookService.allContactsStored());
         System.out.println("Whats next?");
         attribute = scanner.nextLine();
       } else if (attribute.equals("-exit")) {
