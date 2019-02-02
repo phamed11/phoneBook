@@ -1,0 +1,20 @@
+[
+  {
+    "firstName": "adsf",
+    "lastName": "asdf",
+    "dateOfBirth": "afd",
+    "phoneNumber": [
+      {
+        "phoneNumber": "asdf"
+      }
+    ],
+    "address": [
+      {
+        "country": "sdf",
+        "zipCode": "sdf",
+        "city": "asdf",
+        "street": "sdf"
+      }
+    ]
+  }
+]
