@@ -123,19 +123,6 @@ public class PhoneBookServiceImpl implements PhoneBookService {
         scanner.nextLine();
       }
     }
-    if (numberOfAddresses == 1) {
-      scanner.nextLine();
-      System.out.print("Enter country: ");
-      address.setCountry(scanner.nextLine());
-      System.out.print("Enter city: ");
-      address.setCity(scanner.nextLine());
-      System.out.print("Enter street: ");
-      address.setStreet(scanner.nextLine());
-      System.out.print("Enter zip code: ");
-      address.setZipCode(scanner.nextLine());
-      resultAddresses.add(address);
-      return resultAddresses;
-    } else {
       scanner.nextLine();
       for (int i = 0; i < numberOfAddresses; i++) {
         System.out.println("Add details for address no." + (i + 1));
@@ -149,13 +136,11 @@ public class PhoneBookServiceImpl implements PhoneBookService {
         address.setZipCode(scanner.nextLine());
         resultAddresses.add(address);
       }
-    }
     return resultAddresses;
   }
 
   private List<String> createPhoneNumbers() {
     Scanner scanner = new Scanner(System.in);
-    String phoneNumber = "";
     int numberOfPhoneNumbers = 0;
     boolean isTrue = true;
     List<String> phoneNumberList = new ArrayList<>();
@@ -169,16 +154,16 @@ public class PhoneBookServiceImpl implements PhoneBookService {
         scanner.nextLine();
       }
     }
-    if (numberOfPhoneNumbers == 1) {
-      System.out.print("Add phone number(must be 10 numbers): ");
-      phoneNumberList.add(formatPhoneNumber(scanner.next()));
-      return phoneNumberList;
-    } else {
       for (int i = 0; i < numberOfPhoneNumbers; i++) {
-        System.out.print("Add phone number(must be 10 numbers) no." + (i + 1) + ": ");
-        phoneNumberList.add(formatPhoneNumber(scanner.next()));
+        System.out.print("Add phone number(must be 11 numbers) no." + (i + 1) + ": ");
+        String number = scanner.next();
+        if (number.length() != 11) {
+          System.out.println("Phone number must be 11 digits long!");
+          i--;
+        } else {
+          phoneNumberList.add(formatPhoneNumber(number));
+        }
       }
-    }
     return phoneNumberList;
   }
 
