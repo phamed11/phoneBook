@@ -49,14 +49,12 @@ public class Start {
         System.out.println("Whats next?");
         attribute = scanner.nextLine();
       } else {
-        System.out.println("Not recongnizable command, try again!");
+        System.out.println("Not recognizable command, try again!");
         message();
         System.out.println("Whats next?");
         attribute = scanner.nextLine();
       }
     }
-
-
   }
 
   private void message() {
@@ -67,8 +65,8 @@ public class Start {
     System.out.println(" -l   Lists all the contacts\n" +
         " -a   Adds a new contact\n" +
         " -r   Removes an contact\n" +
-        " -u   Update a Contact\n" +
-        " -console Show possible commands\n" +
-        " -exit Exit program\n");
+        " -u   Updates a Contact\n" +
+        " -console  Shows possible commands\n" +
+        " -exit Exits program\n");
   }
 }
