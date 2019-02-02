@@ -1,6 +1,6 @@
 package com.PhoneBook2;
 
-import com.PhoneBook2.controller.Controller;
+import com.PhoneBook2.controller.Start;
 import com.PhoneBook2.service.PhoneBookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -24,8 +24,7 @@ public class PhoneBook2Application implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 
-		Controller controller = new Controller(phoneBookService);
-		controller.start(args);
+		new Start(args,phoneBookService);
 	}
 }
 

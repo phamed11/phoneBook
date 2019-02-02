@@ -3,24 +3,25 @@ package com.PhoneBook2.controller;
 import com.PhoneBook2.service.PhoneBookService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.IOException;
 import java.util.Scanner;
 
-public class Controller {
+public class Start {
 
   private PhoneBookService phoneBookService;
   private Logger log = LoggerFactory.getLogger(this.getClass());
 
-  public Controller(PhoneBookService phoneBookService) {
+  @Autowired
+  public Start(String[] args, PhoneBookService phoneBookService) throws IOException {
     this.phoneBookService = phoneBookService;
-  }
 
-  public void start(String[] args) throws IOException {
     Scanner scanner = new Scanner(System.in);
     String attribute = "";
     boolean isTrue = true;
     if (args.length == 0) {
+      log.info("PhoneBook app started...");
       message();
       System.out.println("What do you want to do? Add parameter");
       attribute = scanner.nextLine();
@@ -35,6 +36,7 @@ public class Controller {
         System.out.println("Whats next?");
         attribute = scanner.nextLine();
       } else if (attribute.equals("-exit")) {
+        log.info("PhoneBook app exited, goodbye!");
         System.exit(0);
       } else if (attribute.equals("-r")) {
         System.out.println("Which contact do you want to remove? (\"firstnamelastname\"): ");
@@ -54,9 +56,10 @@ public class Controller {
       }
     }
 
+
   }
 
-  public static void message() {
+  private void message() {
     System.out.println("PhoneBook application");
     System.out.println("=============================");
     System.out.println();
