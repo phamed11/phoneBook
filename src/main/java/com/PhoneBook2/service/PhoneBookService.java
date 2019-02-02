@@ -10,4 +10,5 @@ public interface PhoneBookService {
   Contact createContact() throws IOException;
   List<Contact> allContactsStored();
   void displayPhoneBook(List<Contact> phoneBook);
+  void removeContact(String fullName) throws IOException;
 }

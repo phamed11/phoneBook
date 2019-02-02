@@ -25,7 +25,7 @@ public class Controller {
       System.out.println("What do you want to do? Add parameter");
       attribute = scanner.nextLine();
     }
-    while(isTrue) {
+    while (isTrue) {
       if (attribute.equals("-a")) {
         phoneBookService.createContact();
         System.out.println("Whats next?");
@@ -36,8 +36,21 @@ public class Controller {
         attribute = scanner.nextLine();
       } else if (attribute.equals("-exit")) {
         System.exit(0);
+      } else if (attribute.equals("-r")) {
+        System.out.println("Which contact do you want to remove? (\"firstnamelastname\"): ");
+        String toRemove = scanner.nextLine();
+        phoneBookService.removeContact(toRemove);
+        System.out.println("Whats next?");
+        attribute = scanner.nextLine();
+      } else if (attribute.equals("-console")) {
+        message();
+        System.out.println("Whats next?");
+        attribute = scanner.nextLine();
       } else {
-        System.exit(1);
+        System.out.println("Not recongnizable command, try again!");
+        message();
+        System.out.println("Whats next?");
+        attribute = scanner.nextLine();
       }
     }
 
@@ -52,6 +65,7 @@ public class Controller {
         " -a   Adds a new contact\n" +
         " -r   Removes an contact\n" +
         " -u   Update a Contact\n" +
+        " -console Show possible commands\n" +
         " -exit Exit program\n");
   }
 }

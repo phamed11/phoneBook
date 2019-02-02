@@ -226,6 +226,9 @@ public class PhoneBookServiceImpl implements PhoneBookService {
   public void displayPhoneBook(List<Contact> phoneBook) {
     File file = new File(JSON_FILE);
     if (file.exists() && file.length() != 0) {
+      if (phoneBook.size() == 0) {
+        log.info("File is empty, use \"-a\" command to add new contact!");
+      }
       for (int i = 0; i < phoneBook.size(); i++) {
         if (phoneBook.get(i).getTitle() == null) {
           System.out.println("Contact's name: " + phoneBook.get(i).getFirstName() + " " + phoneBook.get(i).getLastName());
@@ -260,6 +263,13 @@ public class PhoneBookServiceImpl implements PhoneBookService {
     return contact;
   }
 
+  private void saveContactList(List<Contact> allContacts) throws IOException {
+    Type collectionType = new TypeToken<List<Contact>>() {
+    }.getType();
+    String toJsonMany = new Gson().toJson(allContacts, collectionType);
+    Files.write(PATH_JSON_FILE, toJsonMany.getBytes());
+  }
+
   private boolean ifContactExists(Contact contact) {
     if (fileNotExistsOrEmpty()) {
       return false;
@@ -282,6 +292,23 @@ public class PhoneBookServiceImpl implements PhoneBookService {
       return true;
     }
     return false;
+  }
+
+  public void removeContact(String fullName) throws IOException {
+    if (fileNotExistsOrEmpty()) {
+      log.error("File not exits or no contacts saved!");
+      return;
+    }
+    List<Contact> allContacts = allContactsStored();
+    for (int i = 0; i < allContactsStored().size(); i++) {
+      if (fullName.equals(allContactsStored().get(i).getFirstName() + allContactsStored().get(i).getLastName())) {
+        log.info("Contact " + allContacts.get(i).getFirstName() + " " + allContacts.get(i).getLastName() + " removed from phonebook!");
+        allContacts.remove(allContacts.get(i));
+        saveContactList(allContacts);
+        return;
+      }
+    }
+    log.error("No contact with that name exits in phonebook");
   }
 }
 
