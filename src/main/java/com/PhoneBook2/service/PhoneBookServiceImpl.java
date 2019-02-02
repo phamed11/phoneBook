@@ -208,18 +208,14 @@ public class PhoneBookServiceImpl implements PhoneBookService {
     }.getType();
     Path path = Paths.get(JSON_FILE);
     if (!Files.exists(path)) {
-      String toJsonOne = contactToJson(contacts);
-      Contact one = jsonToContact(toJsonOne);
-      contactList.add(one);
+      contactList.add(contacts);
       String toJsonMany = new Gson().toJson(contactList, collectionType);
       Files.write(path, toJsonMany.getBytes());
       return;
     }
     File file = new File(JSON_FILE);
-    if (file.length() == 0 || file.equals(null)) {
-      String toJsonOne = contactToJson(contacts);
-      Contact one = jsonToContact(toJsonOne);
-      contactList.add(one);
+    if (file.length() == 0) {
+      contactList.add(contacts);
       String toJsonMany = new Gson().toJson(contactList, collectionType);
       Files.write(path, toJsonMany.getBytes());
       return;
@@ -232,7 +228,7 @@ public class PhoneBookServiceImpl implements PhoneBookService {
 
   public void displayPhoneBook(List<Contact> phoneBook) {
     File file = new File(JSON_FILE);
-    if (file.exists()) {
+    if (file.exists() && file.length() != 0) {
       for (int i = 0; i < phoneBook.size(); i++) {
         if (phoneBook.get(i).getTitle() == null) {
           System.out.println("Contact's name: " + phoneBook.get(i).getFirstName() + " " + phoneBook.get(i).getLastName());
@@ -250,9 +246,10 @@ public class PhoneBookServiceImpl implements PhoneBookService {
           System.out.println("Contact's street: " + phoneBook.get(i).getAddress().get(j).getStreet());
           System.out.println("Contact's zipcode: " + phoneBook.get(i).getAddress().get(j).getZipCode());
         }
-
         System.out.println();
       }
+    } else {
+      log.info("File is empty!");
     }
   }
 

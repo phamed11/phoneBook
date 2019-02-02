@@ -31,7 +31,6 @@ public class Controller {
         System.out.println("Whats next?");
         attribute = scanner.nextLine();
       } else if (attribute.equals("-l")) {
-//        System.out.println(phoneBookService.allContactsStored());
         phoneBookService.displayPhoneBook(phoneBookService.allContactsStored());
         System.out.println("Whats next?");
         attribute = scanner.nextLine();
