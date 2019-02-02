@@ -230,7 +230,7 @@ public class PhoneBookServiceImpl implements PhoneBookService {
     File file = new File(JSON_FILE);
     if (file.exists() && file.length() != 0) {
       if (phoneBook.size() == 0) {
-        log.info("File is empty, use \"-a\" command to add new contact!");
+        log.info("Nothing to display!");
       }
       for (int i = 0; i < phoneBook.size(); i++) {
         if (phoneBook.get(i).getTitle() == null) {
@@ -314,22 +314,22 @@ public class PhoneBookServiceImpl implements PhoneBookService {
     log.error("No contact with that name exits in phone book");
   }
 
-  public List<Contact> findByName(String firstName) throws ContactNotFoundException, ContactWrongParameterException{
+  public List<Contact> findByName(String firstName) {
     if (firstName == null || "".equals(firstName)) {
       log.error("Argument is not applicable  " + firstName);
-      throw new ContactWrongParameterException("Argument is not applicable: " + firstName);
     }
+
     List<Contact> foundContacts = allContactsStored().stream()
         .filter(contact -> contact.getFirstName().equals(firstName))
         .collect(Collectors.toList());
 
     if (foundContacts.size() == 0) {
       log.error("Cannot find contact with name " + firstName);
-      throw new ContactNotFoundException("Cannot find contact with name " + firstName);
     }
     return foundContacts;
   }
 }
+
 
 
 

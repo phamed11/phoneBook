@@ -45,7 +45,7 @@ public class Start {
         System.out.println("Whats next? use \"-console\" for help!");
         attribute = scanner.nextLine();
       } else if (attribute.equals("-fFirstName")) {
-        System.out.println("Give first name to find: ");
+        System.out.print("Give first name to find: ");
         String firstName = scanner.nextLine();
         phoneBookService.displayPhoneBook(phoneBookService.findByName(firstName));
         System.out.println("Whats next? use \"-console\" for help!");
