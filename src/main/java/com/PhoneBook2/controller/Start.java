@@ -26,9 +26,10 @@ public class Start {
       System.out.println("What do you want to do? Add parameter");
       attribute = scanner.nextLine();
     }
+
     while (isTrue) {
       if (attribute.equals("-a")) {
-        phoneBookService.createContact();
+        phoneBookService.createContact(scanner);
         System.out.println("Whats next? use \"-console\" for help!");
         attribute = scanner.nextLine();
       } else if (attribute.equals("-l")) {
@@ -75,10 +76,5 @@ public class Start {
 //        " -u   Updates a contact - not implemented yet!!!\n" +
         " -console  Shows possible commands\n" +
         " -exit Exits program\n");
-  }
-
-  private void nextArgument(String attribute, Scanner scanner) {
-    System.out.println("Whats next? use \"-console\" for help!");
-    attribute = scanner.nextLine();
   }
 }

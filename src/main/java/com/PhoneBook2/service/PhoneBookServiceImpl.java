@@ -41,16 +41,16 @@ public class PhoneBookServiceImpl implements PhoneBookService {
     }
   }
 
-  public Contact createContact() throws IOException {
+  public Contact createContact(Scanner scanner) throws IOException {
     createDirectoryIfNotExists();
     Contact resultContact = new Contact();
     System.out.println("Create contact: ");
-    resultContact.setTitle(createTitle());
-    resultContact.setFirstName(createFirstName());
-    resultContact.setLastName(createLastName());
-    resultContact.setDateOfBirth(createDateOfBirth());
-    resultContact.setPhoneNumber(createPhoneNumbers());
-    resultContact.setAddress(createAddresses());
+    resultContact.setTitle(createTitle(scanner));
+    resultContact.setFirstName(createFirstName(scanner));
+    resultContact.setLastName(createLastName(scanner));
+    resultContact.setDateOfBirth(createDateOfBirth(scanner));
+    resultContact.setPhoneNumber(createPhoneNumbers(scanner));
+    resultContact.setAddress(createAddresses(scanner));
     createContactIfNotExists(resultContact);
     return resultContact;
   }
@@ -69,22 +69,19 @@ public class PhoneBookServiceImpl implements PhoneBookService {
     return allContacts;
   }
 
-  private String createFirstName() {
-    Scanner scanner = new Scanner(System.in);
+  private String createFirstName(Scanner scanner) {
     System.out.print("Enter first name: ");
     String firstName = scanner.nextLine();
     return firstName;
   }
 
-  private String createLastName() {
-    Scanner scanner = new Scanner(System.in);
+  private String createLastName(Scanner scanner) {
     System.out.print("Enter last name: ");
     String lastName = scanner.nextLine();
     return lastName;
   }
 
-  private String createDateOfBirth() {
-    Scanner scanner = new Scanner(System.in);
+  private String createDateOfBirth(Scanner scanner) {
     boolean isTrue = true;
     System.out.print("Enter date of birth: ");
     String dateOfBirth = scanner.nextLine();
@@ -99,8 +96,7 @@ public class PhoneBookServiceImpl implements PhoneBookService {
     return dateOfBirth;
   }
 
-  private String createTitle() {
-    Scanner scanner = new Scanner(System.in);
+  private String createTitle(Scanner scanner) {
     boolean isTrue = true;
     System.out.print("Enter title: ");
     String title = scanner.nextLine();
@@ -117,8 +113,7 @@ public class PhoneBookServiceImpl implements PhoneBookService {
     return title;
   }
 
-  private List<Address> createAddresses() {
-    Scanner scanner = new Scanner(System.in);
+  private List<Address> createAddresses(Scanner scanner) {
     Address address = new Address();
     int numberOfAddresses = 0;
     boolean isTrue = true;
@@ -149,8 +144,7 @@ public class PhoneBookServiceImpl implements PhoneBookService {
     return resultAddresses;
   }
 
-  private List<String> createPhoneNumbers() {
-    Scanner scanner = new Scanner(System.in);
+  private List<String> createPhoneNumbers(Scanner scanner) {
     int numberOfPhoneNumbers = 0;
     boolean isTrue = true;
     List<String> phoneNumberList = new ArrayList<>();
@@ -250,15 +244,15 @@ public class PhoneBookServiceImpl implements PhoneBookService {
     }
   }
 
-  private String contactToJson(Contact contact) {
-    String toJsonOne = new Gson().toJson(contact, Contact.class);
-    return toJsonOne;
-  }
-
-  private Contact jsonToContact(String json) {
-    Contact contact = new Gson().fromJson(json, Contact.class);
-    return contact;
-  }
+//  private String contactToJson(Contact contact) {
+//    String toJsonOne = new Gson().toJson(contact, Contact.class);
+//    return toJsonOne;
+//  }
+//
+//  private Contact jsonToContact(String json) {
+//    Contact contact = new Gson().fromJson(json, Contact.class);
+//    return contact;
+//  }
 
   private void saveContactList(List<Contact> allContacts) throws IOException {
     String toJsonMany = new Gson().toJson(allContacts, COLLECTION_TYPE);
