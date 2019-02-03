@@ -293,8 +293,8 @@ public class PhoneBookServiceImpl implements PhoneBookService {
 
     List<Contact> allContacts = allContactsStored();
     for (int i = 0; i < allContactsStored().size(); i++) {
-      if (fullName.equals(allContactsStored().get(i).getFirstName() + allContactsStored().get(i).getLastName())) {
-        log.info("Contact " + allContacts.get(i).getFirstName() + " " + allContacts.get(i).getLastName() + " removed from phonebook!");
+      if (fullName.equals(allContactsStored().get(i).getFullName())) {
+        log.info("Contact " + allContacts.get(i).getFullName() + " removed from phonebook!");
         allContacts.remove(allContacts.get(i));
         saveContactList(allContacts);
         return;

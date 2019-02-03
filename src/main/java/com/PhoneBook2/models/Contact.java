@@ -46,4 +46,8 @@ public class Contact {
         ", addressList=" + address +
         '}';
   }
+
+  public String getFullName() {
+    return firstName + " " + lastName;
+  }
 }
