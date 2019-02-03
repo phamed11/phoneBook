@@ -1,3 +1,5 @@
+[![CircleCI](https://circleci.com/gh/phamed11/phoneBook.svg?style=svg)](https://circleci.com/gh/phamed11/phoneBook)
+
 # Phone book command-line application
 
 Simple command-line application to store phone numbers in Json format.
