@@ -28,7 +28,7 @@ public class Start {
     }
     while (isTrue) {
       if (attribute.equals("-a")) {
-        phoneBookService.createContact();
+        phoneBookService.createContact(scanner);
         System.out.println("Whats next? use \"-console\" for help!");
         attribute = scanner.nextLine();
       } else if (attribute.equals("-l")) {
