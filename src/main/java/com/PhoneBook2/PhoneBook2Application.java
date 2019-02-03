@@ -10,15 +10,15 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class PhoneBook2Application implements CommandLineRunner {
 
-  public static void main(String[] args) {
-    SpringApplication.run(PhoneBook2Application.class, args);
-  }
-
   private PhoneBookService phoneBookService;
 
   @Autowired
   public PhoneBook2Application(PhoneBookService phoneBookService) {
     this.phoneBookService = phoneBookService;
+  }
+
+  public static void main(String[] args) {
+    SpringApplication.run(PhoneBook2Application.class, args);
   }
 
   @Override
