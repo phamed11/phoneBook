@@ -76,5 +76,7 @@ public class Start {
 //        " -u   Updates a contact - not implemented yet!!!\n" +
         " -console  Shows possible commands\n" +
         " -exit Exits program\n");
+
+
   }
 }
