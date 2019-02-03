@@ -28,6 +28,9 @@ public class PhoneBookServiceImpl implements PhoneBookService {
   private static final String LOCAL_FOLDER = "Assets/";
   private static final String JSON_FILE = LOCAL_FOLDER + PHONEBOOK_FILE;
   private static final Path PATH_JSON_FILE = Paths.get(JSON_FILE);
+  public static final Type COLLECTION_TYPE = new TypeToken<List<Contact>>() {
+  }.getType();
+
 
   public void createContactIfNotExists(Contact contact) throws IOException {
     if (ifContactExists(contact)) {
@@ -62,9 +65,7 @@ public class PhoneBookServiceImpl implements PhoneBookService {
       e.printStackTrace();
       log.error("Wrong file format or empty file!");
     }
-    Type collectionType = new TypeToken<List<Contact>>() {
-    }.getType();
-    List<Contact> allContacts = new Gson().fromJson(content, collectionType);
+    List<Contact> allContacts = new Gson().fromJson(content, COLLECTION_TYPE);
     return allContacts;
   }
 
@@ -196,25 +197,23 @@ public class PhoneBookServiceImpl implements PhoneBookService {
 
   private void saveContacts(Contact contacts) throws IOException {
     List<Contact> contactList = new ArrayList<>();
-    Type collectionType = new TypeToken<List<Contact>>() {
-    }.getType();
     Path path = Paths.get(JSON_FILE);
     if (!Files.exists(path)) {
       contactList.add(contacts);
-      String toJsonMany = new Gson().toJson(contactList, collectionType);
+      String toJsonMany = new Gson().toJson(contactList, COLLECTION_TYPE);
       Files.write(path, toJsonMany.getBytes());
       return;
     }
     File file = new File(JSON_FILE);
     if (file.length() == 0) {
       contactList.add(contacts);
-      String toJsonMany = new Gson().toJson(contactList, collectionType);
+      String toJsonMany = new Gson().toJson(contactList, COLLECTION_TYPE);
       Files.write(path, toJsonMany.getBytes());
       return;
     }
     contactList = allContactsStored();
     contactList.add(contacts);
-    String toJsonMany = new Gson().toJson(contactList, collectionType);
+    String toJsonMany = new Gson().toJson(contactList, COLLECTION_TYPE);
     Files.write(path, toJsonMany.getBytes());
   }
 
@@ -224,6 +223,7 @@ public class PhoneBookServiceImpl implements PhoneBookService {
       if (phoneBook.size() == 0) {
         log.info("Nothing to display!");
       }
+
       for (int i = 0; i < phoneBook.size(); i++) {
         if (phoneBook.get(i).getTitle() == null) {
           System.out.println("Contact's name: " + phoneBook.get(i).getFirstName() + " " + phoneBook.get(i).getLastName());
@@ -231,9 +231,11 @@ public class PhoneBookServiceImpl implements PhoneBookService {
           System.out.println("Contact's name: " + phoneBook.get(i).getTitle() + " " + phoneBook.get(i).getFirstName() + " " + phoneBook.get(i).getLastName());
         }
         System.out.println("Contact's birthday: " + phoneBook.get(i).getDateOfBirth());
+
         for (int j = 0; j < phoneBook.get(i).getPhoneNumber().size(); j++) {
           System.out.println("Contact's phone number no." + (j + 1) + ": " + phoneBook.get(i).getPhoneNumber().get(j));
         }
+
         for (int j = 0; j < phoneBook.get(i).getAddress().size(); j++) {
           System.out.println("Contact's address no." + (j + 1) + ":");
           System.out.println("Contact's country: " + phoneBook.get(i).getAddress().get(j).getCountry());
@@ -259,9 +261,7 @@ public class PhoneBookServiceImpl implements PhoneBookService {
   }
 
   private void saveContactList(List<Contact> allContacts) throws IOException {
-    Type collectionType = new TypeToken<List<Contact>>() {
-    }.getType();
-    String toJsonMany = new Gson().toJson(allContacts, collectionType);
+    String toJsonMany = new Gson().toJson(allContacts, COLLECTION_TYPE);
     Files.write(PATH_JSON_FILE, toJsonMany.getBytes());
   }
 
@@ -269,6 +269,7 @@ public class PhoneBookServiceImpl implements PhoneBookService {
     if (fileNotExistsOrEmpty()) {
       return false;
     }
+
     List<Contact> allContacts = allContactsStored();
     for (Contact contactCheck : allContacts) {
       if ((contact.getFirstName() + contact.getLastName()).equals((contactCheck.getFirstName() + contactCheck.getLastName()))) {
@@ -282,6 +283,7 @@ public class PhoneBookServiceImpl implements PhoneBookService {
     if (!Files.exists(PATH_JSON_FILE)) {
       return true;
     }
+
     List<Contact> allContacts = allContactsStored();
     if (allContacts == null || allContacts.size() == 0) {
       return true;
@@ -294,6 +296,7 @@ public class PhoneBookServiceImpl implements PhoneBookService {
       log.error("File not exits or no contacts saved!");
       return;
     }
+
     List<Contact> allContacts = allContactsStored();
     for (int i = 0; i < allContactsStored().size(); i++) {
       if (fullName.equals(allContactsStored().get(i).getFirstName() + allContactsStored().get(i).getLastName())) {
