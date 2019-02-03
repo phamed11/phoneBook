@@ -1,4 +1,4 @@
-[![CircleCI](https://circleci.com/gh/phamed11/phoneBook.svg?style=svg&circle-token=95bd42f66835cdf608930a5b183781629fb23d8e)](https://circleci.com/gh/phamed11/phoneBook)
+[![CircleCI](https://circleci.com/gh/phamed11/phoneBook.svg?style=shield&circle-token=95bd42f66835cdf608930a5b183781629fb23d8e)](https://circleci.com/gh/phamed11/phoneBook)
 
 
 # Phone book command-line application
