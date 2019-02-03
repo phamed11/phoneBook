@@ -26,6 +26,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter'
 	runtimeOnly 'org.springframework.boot:spring-boot-devtools'
 	compileOnly 'org.projectlombok:lombok'
+	testcompileOnly 'org.projectlombok:lombok'
 	implementation 'com.google.code.gson:gson:2.8.5'
 	compile 'info.picocli:picocli:3.9.3'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
