@@ -40,7 +40,7 @@ public class Start {
         log.info("PhoneBook app exited, goodbye!");
         System.exit(0);
       } else if (attribute.equals("-r")) {
-        System.out.println("Which contact do you want to remove? (\"firstnamelastname\"): ");
+        System.out.println("Which contact do you want to remove? (\"format: firstname lastname\"): ");
         String toRemove = scanner.nextLine();
         phoneBookService.removeContact(toRemove);
         System.out.println("Whats next? use \"-console\" for help!");
