@@ -1,4 +1,4 @@
-package com.PhoneBook2.models;
+package com.PhoneBook.models;
 
 
 import lombok.Getter;

@@ -1,6 +1,6 @@
-package com.PhoneBook2.controller;
+package com.PhoneBook.controller;
 
-import com.PhoneBook2.service.PhoneBookService;
+import com.PhoneBook.service.PhoneBookService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

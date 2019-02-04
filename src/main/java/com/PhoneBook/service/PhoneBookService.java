@@ -1,8 +1,8 @@
-package com.PhoneBook2.service;
+package com.PhoneBook.service;
 
-import com.PhoneBook2.exception.ContactNotFoundException;
-import com.PhoneBook2.exception.ContactWrongParameterException;
-import com.PhoneBook2.models.Contact;
+import com.PhoneBook.exception.ContactNotFoundException;
+import com.PhoneBook.exception.ContactWrongParameterException;
+import com.PhoneBook.models.Contact;
 
 import java.io.IOException;
 import java.util.List;

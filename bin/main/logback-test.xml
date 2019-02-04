@@ -54,8 +54,8 @@
         <appender-ref ref="Console"/>
     </root>
 
-    <!--LOG "com.PhoneBook2.*" at TRACE level -->
-    <logger name="com.PhoneBook2" level="trace" additivity="false">
+    <!--LOG "com.PhoneBook.*" at TRACE level -->
+    <logger name="com.PhoneBook" level="trace" additivity="false">
         <appender-ref ref="RollingFile"/>
         <appender-ref ref="Console"/>
         <appender-ref ref="SevereRollingFile"/>

@@ -1,4 +1,4 @@
-package com.PhoneBook2.exception;
+package com.PhoneBook.exception;
 
 public class ContactNotFoundException extends ContactServiceException {
 

@@ -1,7 +1,7 @@
-package com.PhoneBook2.service;
+package com.PhoneBook.service;
 
-import com.PhoneBook2.models.Address;
-import com.PhoneBook2.models.Contact;
+import com.PhoneBook.models.Address;
+import com.PhoneBook.models.Contact;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import org.slf4j.Logger;
