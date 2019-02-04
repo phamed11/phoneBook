@@ -58,7 +58,7 @@ public class PhoneBookServiceImpl implements PhoneBookService {
   public List<Contact> allContactsStored() {
     String content = "";
     try {
-      content = new String(Files.readAllBytes(Paths.get(JSON_FILE)), "UTF-8");
+      content = new String(Files.readAllBytes(PATH_JSON_FILE), "UTF-8");
     } catch (NoSuchFileException e) {
       log.error("File is missing");
     } catch (IOException e) {

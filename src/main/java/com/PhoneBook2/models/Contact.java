@@ -37,14 +37,7 @@ public class Contact {
 
   @Override
   public String toString() {
-    return "Contact{" +
-        "title='" + title + '\'' +
-        ", firstName='" + firstName + '\'' +
-        ", lastName='" + lastName + '\'' +
-        ", dateOfBirth=" + dateOfBirth +
-        ", phoneNumberList=" + phoneNumber +
-        ", addressList=" + address +
-        '}';
+    return (title != null ? title : "") +" " +  getFullName() + " " + dateOfBirth + " " + phoneNumber + " " + address.toString();
   }
 
   public String getFullName() {
