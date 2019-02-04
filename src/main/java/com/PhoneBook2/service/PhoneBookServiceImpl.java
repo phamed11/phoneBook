@@ -71,14 +71,12 @@ public class PhoneBookServiceImpl implements PhoneBookService {
 
   private String createFirstName(Scanner scanner) {
     System.out.print("Enter first name: ");
-    String firstName = scanner.nextLine();
-    return firstName;
+    return scanner.nextLine();
   }
 
   private String createLastName(Scanner scanner) {
     System.out.print("Enter last name: ");
-    String lastName = scanner.nextLine();
-    return lastName;
+    return scanner.nextLine();
   }
 
   private String createDateOfBirth(Scanner scanner) {
